@@ -266,6 +266,9 @@ while True:
 
     timer = cv2.getTickCount()
     
+    
+    
+    # all the keyboard commands
     try:
         if keyboard.is_pressed('f8'):
             shootLockedTarget = not shootLockedTarget
@@ -321,9 +324,11 @@ while True:
 
     headBoxes, bodyBoxes = getOpponentPosition(frame, outputs, opponentTeam=opponentTeam)
     # if aimTarget == True:
+    #if there is head visible
     if headBoxes is not None:
         if drawOnScreen:
             drawBox(headBoxes, boxText='Head', boxColor=(0,0,0), textColor=green)
+            #checks if you are using awp
         if sniperRifle == False:
             closestBbox = getClosestTarget(currentPositionPoint, headBoxes)
             closestBbox = closestBbox[0], closestBbox[1], closestBbox[2], closestBbox[3]
@@ -334,6 +339,7 @@ while True:
                 if shotCounter < 1:
                     pyautogui.click()
                     shotCounter = 10
+        #if body is visible, head is not
     if bodyBoxes is not None:
         if drawOnScreen:
             drawBox(bodyBoxes, boxColor=blue)
@@ -353,6 +359,8 @@ while True:
                 pyautogui.click()
 
     fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
+    
+    #draws on 
     if drawOnScreen:
         drawText('Detection FPS: ' + str(int(fps)),150,25,backgroundColor=fuchsia, textColor=green, textSize=32)
     if counter > 0:
