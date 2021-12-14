@@ -9,6 +9,9 @@ from ctypes import windll
 import pygame
 import keyboard, mouse
 
+
+#stuff below is all related to using the gpu in the aimbot
+
 gpuModelsInstalledFlag = False
 try:
     import tensorflow as tf
@@ -25,6 +28,9 @@ if gpuModelsInstalledFlag == True:
         if input('Would you like to launch beta tensorflow aimbot (y = Yes): ') == 'y':
             os.system('aimbotTensorflow.py')
 #clear()
+
+#set screen height and width
+
 print('Launching aimbot on CPU...')
 screenWidth = 1920
 screenHieght = 1080
@@ -103,6 +109,8 @@ def set_pos(x, y):
     command=pynput._util.win32.INPUT(ctypes.c_ulong(0), ii_)
     SendInput(1, ctypes.pointer(command), ctypes.sizeof(command))
 
+    
+    #draws text, used in multiple places elsewhere in the program
 
 def drawText(text, x, y, backgroundColor=green, textColor=blue, textSize=13):
     font = pygame.font.Font('freesansbold.ttf', textSize) 
@@ -213,7 +221,7 @@ def trackBox(frame, bbox):
 
 
 
-
+#if there are multiple targets in the area of the screen the aimbot is active this finds the one closest to the center
 
 def getClosestTarget(mousePoint, headBoxes):
     distance = math.sqrt( ((mousePoint[0]-headBoxes[0][0])**2)+((mousePoint[1]-headBoxes[0][1])**2) )
